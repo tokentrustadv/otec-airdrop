@@ -1,0 +1,14 @@
+# Ignore environment secrets
+.env.local
+
+# Node + Next.js build artifacts
+node_modules/
+.next/
+out/
+
+# OS / Editor files
+.DS_Store
+*.log
+
+# Airdrop outputs (optional)
+next-airdrop.csv
