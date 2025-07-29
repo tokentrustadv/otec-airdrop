@@ -138,10 +138,10 @@ export default function Home() {
             OTEC is not a meme token. It's your gateway to learning how to trade on a decentralized exchange.
           </p>
           <p className="text-sm text-gray-700 mb-2 text-center">
-            Try swapping just <strong>1 USDC</strong> on <a className="text-yellow-700 underline" href="https://alien.base.org" target="_blank" rel="noopener noreferrer">Alien Base</a> — a premier DEX on the Base network.
+            Try swapping just <strong>1 USDC</strong> on <a className="text-yellow-700 underline" href="https://app.alienbase.xyz/info/v3/tokens/0xd2465ab071623d04633df0e8a44fbeed1e83ee92?poolAddress=0xca3cc0e956cbfedba9950d0afd68d40db0045572" target="_blank" rel="noopener noreferrer">Alien Base</a> — a premier DEX on the Base network.
           </p>
           <p className="text-sm text-gray-700 text-center">
-            Don’t have a wallet? Get started with <a href="https://wallet.coinbase.com/" className="text-yellow-700 underline" target="_blank" rel="noopener noreferrer">Coinbase Wallet</a> or <a href="https://metamask.io/" className="text-yellow-700 underline" target="_blank" rel="noopener noreferrer">MetaMask</a> — it’s easy and secure.
+            Don’t have a wallet? Get started with <a href="https://docs.base.org/base-chain/quickstart/connecting-to-base" className="text-yellow-700 underline" target="_blank" rel="noopener noreferrer">Coinbase Wallet</a> or <a href="https://docs.base.org/base-chain/quickstart/connecting-to-base" className="text-yellow-700 underline" target="_blank" rel="noopener noreferrer">MetaMask</a> — it’s easy and secure.
           </p>
         </div>
       </main>
