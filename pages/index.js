@@ -43,7 +43,7 @@ export default function Home() {
 
       <main className="min-h-screen bg-[#f8f9fa] flex flex-col items-center justify-center p-6">
         <div className="w-full max-w-md bg-white shadow-xl rounded-xl p-8">
-          <h1 className="text-3xl font-bold text-center text-blue-700 mb-6">Claim Your OTEC</h1>
+          <h1 className="text-3xl font-bold text-center text-yellow-700 mb-6">Claim Your OTEC</h1>
           <p className="text-sm text-center text-gray-600 mb-4">
             Enter the email tied to your paid Substack and your wallet address on Base.
           </p>
@@ -59,7 +59,7 @@ export default function Home() {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-yellow-500 focus:border-yellow-500"
               />
             </div>
             <div>
@@ -72,21 +72,22 @@ export default function Home() {
                 required
                 value={wallet}
                 onChange={(e) => setWallet(e.target.value)}
-                className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-yellow-500 focus:border-yellow-500"
               />
             </div>
             <button
               type="submit"
-              className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition"
+              className="w-full bg-yellow-600 text-white py-2 px-4 rounded-md hover:bg-yellow-700 transition"
             >
               Submit
             </button>
           </form>
 
           {submitted && (
-            <p className="text-green-600 text-sm text-center mt-4">
-              Thanks! Your wallet has been added to the drop list.
-            </p>
+            <div className="mt-4 text-sm text-center text-green-700">
+              <p>Your wallet has been queued for the drop.</p>
+              <p className="mt-1">If you're new to DEX trading, you’ll receive more instructions by email.</p>
+            </div>
           )}
           {error && (
             <p className="text-red-600 text-sm text-center mt-4">
