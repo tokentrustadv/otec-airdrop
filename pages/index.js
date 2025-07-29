@@ -1,4 +1,4 @@
-// pages/index.js
+// pages/index.js (Base-style UI)
 import { useState } from 'react';
 
 export default function Home() {
@@ -16,12 +16,11 @@ export default function Home() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, wallet })
     });
-
     const data = await res.json();
     if (res.ok) {
-      setStatus('Thanks — if eligible, your airdrop will be sent soon.');
+      setStatus('✅ If eligible, your OTEC will be airdropped soon.');
     } else {
-      setStatus(data.error || 'Submission failed.');
+      setStatus(data.error || '❌ Submission failed.');
     }
   };
 
@@ -34,61 +33,66 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center p-6 text-center">
-      <h1 className="text-3xl font-bold mb-2">🎯 Claim Your OTEC Airdrop</h1>
-      <p className="mb-6 max-w-xl text-gray-600">
-        You’re early. This form connects your Substack subscription to your wallet.
-        OTEC is live on Base and listed on Alien Base — this is not a meme.
-      </p>
+    <main className="min-h-screen bg-white flex flex-col items-center justify-center px-6 py-16 text-center font-sans text-gray-800">
+      <div className="w-full max-w-2xl">
+        <h1 className="text-4xl font-extrabold mb-2 tracking-tight">🪙 OTEC: Claim Your Airdrop</h1>
+        <p className="text-lg mb-10 text-gray-500">The ownership layer for the economy — powered by Base</p>
 
-      <form onSubmit={handleSubmit} className="space-y-4 w-full max-w-md">
-        <input
-          type="email"
-          placeholder="Your Substack Email"
-          className="w-full px-4 py-2 border rounded"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <input
-          type="text"
-          placeholder="Your Base Wallet Address"
-          className="w-full px-4 py-2 border rounded"
-          value={wallet}
-          onChange={(e) => setWallet(e.target.value)}
-          required
-        />
-        <button type="submit" className="bg-black text-white px-4 py-2 rounded hover:bg-gray-800">
-          Submit
-        </button>
-      </form>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <input
+            type="email"
+            placeholder="Enter your Substack email"
+            className="w-full px-5 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+          <input
+            type="text"
+            placeholder="Your Base wallet address"
+            className="w-full px-5 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            value={wallet}
+            onChange={(e) => setWallet(e.target.value)}
+            required
+          />
+          <button type="submit" className="w-full bg-black text-white py-3 rounded-lg font-semibold text-lg hover:bg-gray-900">
+            🚀 Submit
+          </button>
+        </form>
 
-      {status && <p className="mt-4 text-sm text-green-600">{status}</p>}
+        {status && <p className="mt-4 text-base font-medium text-blue-600">{status}</p>}
 
-      <div className="mt-10 w-full max-w-md">
-        <h2 className="text-xl font-semibold mb-2">🔍 Check Airdrop Status</h2>
-        <button onClick={checkVerify} disabled={checking} className="bg-gray-100 border px-3 py-1 rounded hover:bg-gray-200">
-          {checking ? 'Checking...' : 'Check Wallet Status'}
-        </button>
-        {verifyResult && (
-          <div className="mt-3 text-sm text-left">
-            <p><strong>Wallet:</strong> {verifyResult.wallet}</p>
-            <p><strong>Status:</strong> {verifyResult.status}</p>
-            {verifyResult.amount && <p><strong>Amount:</strong> {verifyResult.amount}</p>}
-            {verifyResult.timestamp && <p><strong>Timestamp:</strong> {verifyResult.timestamp}</p>}
-          </div>
-        )}
-      </div>
+        <div className="mt-12 border-t pt-8">
+          <h2 className="text-xl font-semibold mb-4">🔍 Check Airdrop Status</h2>
+          <input
+            type="text"
+            placeholder="Your wallet address"
+            className="w-full px-4 py-2 mb-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            value={wallet}
+            onChange={(e) => setWallet(e.target.value)}
+          />
+          <button onClick={checkVerify} disabled={checking} className="w-full bg-gray-100 hover:bg-gray-200 py-2 rounded-lg">
+            {checking ? 'Checking...' : 'Check Status'}
+          </button>
+          {verifyResult && (
+            <div className="mt-3 text-sm text-left text-gray-600 bg-gray-50 p-4 rounded-lg">
+              <p><strong>Wallet:</strong> {verifyResult.wallet}</p>
+              <p><strong>Status:</strong> {verifyResult.status}</p>
+              {verifyResult.amount && <p><strong>Amount:</strong> {verifyResult.amount}</p>}
+              {verifyResult.timestamp && <p><strong>Timestamp:</strong> {verifyResult.timestamp}</p>}
+            </div>
+          )}
+        </div>
 
-      <div className="mt-12 max-w-xl text-left text-sm text-gray-600">
-        <h2 className="text-lg font-semibold mb-2">💡 Want to learn how DEXs work?</h2>
-        <p className="mb-1">OTEC is available on Alien Base — a trusted DEX on the Base network.</p>
-        <ul className="list-disc list-inside">
-          <li><a href="https://app.alienbase.xyz/info/v3/tokens/0xd2465ab071623d04633df0e8a44fbeed1e83ee92?poolAddress=0xca3cc0e956cbfedba9950d0afd68d40db0045572" target="_blank" className="text-blue-600 underline">Trade OTEC on Alien Base</a></li>
-          <li><a href="https://www.coinbase.com/price/usd-coin" target="_blank" className="text-blue-600 underline">What is USDC?</a></li>
-          <li><a href="https://base.org" target="_blank" className="text-blue-600 underline">How to use Base with MetaMask</a></li>
-        </ul>
-        <p className="mt-2">Try trading just 1 USDC to learn. It’s all handled by smart contracts. No middlemen. This is the future.</p>
+        <div className="mt-16">
+          <h3 className="text-lg font-semibold mb-2">⚡ Learn How To Use OTEC</h3>
+          <ul className="space-y-2 text-sm text-blue-600">
+            <li><a href="https://app.alienbase.xyz/info/v3/tokens/0xd2465ab071623d04633df0e8a44fbeed1e83ee92?poolAddress=0xca3cc0e956cbfedba9950d0afd68d40db0045572" target="_blank" className="underline">Trade OTEC on Alien Base</a></li>
+            <li><a href="https://www.circle.com/usdc" target="_blank" className="underline">What is USDC?</a></li>
+            <li><a href="https://docs.base.org/base-chain/quickstart/connecting-to-base" target="_blank" className="underline">How to use Base with MetaMask</a></li>
+          </ul>
+          <p className="mt-4 text-xs text-gray-400">Try trading just 1 USDC to get started. OTEC is a real token, on a real network, traded with no middlemen. This is how on-chain membership begins.</p>
+        </div>
       </div>
     </main>
   );
