@@ -1,126 +1,100 @@
+import Head from 'next/head';
 import { useState } from 'react';
 
 export default function Home() {
   const [email, setEmail] = useState('');
   const [wallet, setWallet] = useState('');
-  const [statusAddress, setStatusAddress] = useState('');
-  const [statusResult, setStatusResult] = useState(null);
+  const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await fetch('/api/airdrop-submit', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, wallet }),
-    });
-    const data = await res.json();
-    alert(data.message);
-  };
+    setSubmitted(false);
+    setError('');
 
-  const checkStatus = async () => {
-    const res = await fetch(`/api/verify?wallet=${statusAddress}`);
-    const data = await res.json();
-    setStatusResult(data);
+    try {
+      const res = await fetch('/api/airdrop-submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, wallet }),
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        setSubmitted(true);
+        setEmail('');
+        setWallet('');
+      } else {
+        setError(data.error || 'Submission failed. Try again.');
+      }
+    } catch (err) {
+      setError('Server error. Please try later.');
+    }
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 py-16 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-2xl mx-auto">
-        <h1 className="text-4xl font-bold text-gray-900 mb-4">Claim Your OTEC Airdrop</h1>
-        <p className="text-lg text-gray-700 mb-8">
-          As a paid subscriber to Token Trust on Substack, you're eligible to receive OTEC — the token that helps you Own The Economy.
-          OTEC is live on Base and listed on Alien Base.
-        </p>
+    <>
+      <Head>
+        <title>Claim OTEC</title>
+        <meta name="description" content="Claim your OTEC airdrop by submitting your wallet address and email." />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
 
-        <form onSubmit={handleSubmit} className="space-y-6 bg-white p-8 rounded-xl shadow-md">
-          <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-              Email address (must match your Substack account)
-            </label>
-            <input
-              id="email"
-              type="email"
-              required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black"
-            />
-          </div>
+      <main className="min-h-screen bg-[#f8f9fa] flex flex-col items-center justify-center p-6">
+        <div className="w-full max-w-md bg-white shadow-xl rounded-xl p-8">
+          <h1 className="text-3xl font-bold text-center text-blue-700 mb-6">Claim Your OTEC</h1>
+          <p className="text-sm text-center text-gray-600 mb-4">
+            Enter the email tied to your paid Substack and your wallet address on Base.
+          </p>
 
-          <div>
-            <label htmlFor="wallet" className="block text-sm font-medium text-gray-700">
-              Wallet address (Base network)
-            </label>
-            <input
-              id="wallet"
-              type="text"
-              required
-              value={wallet}
-              onChange={(e) => setWallet(e.target.value)}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black"
-            />
-          </div>
-
-          <button
-            type="submit"
-            className="w-full rounded-lg bg-black text-white py-3 px-6 text-lg font-semibold transition-all duration-300 hover:bg-gradient-to-r hover:from-blue-500 hover:to-purple-500 hover:shadow-lg"
-          >
-            Submit
-          </button>
-        </form>
-
-        <div className="mt-12 bg-white p-8 rounded-xl shadow-md">
-          <h2 className="text-2xl font-semibold text-gray-900 mb-4">Check Wallet Status</h2>
-          <div className="flex space-x-2">
-            <input
-              type="text"
-              placeholder="Wallet address"
-              value={statusAddress}
-              onChange={(e) => setStatusAddress(e.target.value)}
-              className="flex-1 rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black"
-            />
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div>
+              <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+                Email
+              </label>
+              <input
+                type="email"
+                id="email"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+              />
+            </div>
+            <div>
+              <label htmlFor="wallet" className="block text-sm font-medium text-gray-700">
+                Wallet Address (Base)
+              </label>
+              <input
+                type="text"
+                id="wallet"
+                required
+                value={wallet}
+                onChange={(e) => setWallet(e.target.value)}
+                className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+              />
+            </div>
             <button
-              onClick={checkStatus}
-              className="rounded-lg bg-black text-white px-4 py-2 font-medium transition-all duration-300 hover:bg-gradient-to-r hover:from-blue-500 hover:to-purple-500 hover:shadow-lg"
+              type="submit"
+              className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition"
             >
-              Check Status
+              Submit
             </button>
-          </div>
-          {statusResult && (
-            <p className="mt-4 text-gray-700">
-              {statusResult.sent ? '✅ OTEC sent to this wallet.' : '⏳ Not yet sent.'}
+          </form>
+
+          {submitted && (
+            <p className="text-green-600 text-sm text-center mt-4">
+              Thanks! Your wallet has been added to the drop list.
+            </p>
+          )}
+          {error && (
+            <p className="text-red-600 text-sm text-center mt-4">
+              {error}
             </p>
           )}
         </div>
-
-        <div className="mt-12 bg-white p-8 rounded-xl shadow-md">
-          <h2 className="text-2xl font-semibold text-gray-900 mb-4">New to DEX trading?</h2>
-          <p className="text-gray-700 mb-2">
-            OTEC is not a meme token. It's your gateway to learning how to trade on a decentralized exchange. Try swapping just 1 USDC on
-            <a
-              href="https://app.alienbase.xyz/info/v3/tokens/0xd2465ab071623d04633df0e8a44fbeed1e83ee92?poolAddress=0xca3cc0e956cbfedba9950d0afd68d40db0045572"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="ml-1 text-blue-600 hover:underline"
-            >
-              Alien Base
-            </a>
-            — a premier DEX on the Base network.
-          </p>
-          <p className="text-gray-700">
-            Don't have a wallet? Get started with
-            <a
-              href="https://docs.base.org/base-chain/quickstart/connecting-to-base"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="ml-1 text-blue-600 hover:underline"
-            >
-              Coinbase Wallet or MetaMask
-            </a>
-            — it’s easy and secure.
-          </p>
-        </div>
-      </div>
-    </div>
+      </main>
+    </>
   );
 }
