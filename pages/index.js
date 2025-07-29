@@ -84,7 +84,7 @@ export default function Home() {
         <h2 className="text-lg font-semibold mb-2">💡 Want to learn how DEXs work?</h2>
         <p className="mb-1">OTEC is available on Alien Base — a trusted DEX on the Base network.</p>
         <ul className="list-disc list-inside">
-          <li><a href="https://app.alienbase.xyz/swap?outputCurrency=0xD2465ab071623d04633df0e8a44fBEEd1E83Ee92" target="_blank" className="text-blue-600 underline">Trade OTEC on Alien Base</a></li>
+          <li><a href="https://app.alienbase.xyz/info/v3/tokens/0xd2465ab071623d04633df0e8a44fbeed1e83ee92?poolAddress=0xca3cc0e956cbfedba9950d0afd68d40db0045572" target="_blank" className="text-blue-600 underline">Trade OTEC on Alien Base</a></li>
           <li><a href="https://www.coinbase.com/price/usd-coin" target="_blank" className="text-blue-600 underline">What is USDC?</a></li>
           <li><a href="https://base.org" target="_blank" className="text-blue-600 underline">How to use Base with MetaMask</a></li>
         </ul>
