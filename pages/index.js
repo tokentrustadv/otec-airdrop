@@ -115,7 +115,7 @@ export default function Home() {
               rel="noopener noreferrer"
               className="ml-1 text-blue-600 hover:underline"
             >
-              MetaMask
+              Coinbase Wallet or MetaMask
             </a>
             — it’s easy and secure.
           </p>
