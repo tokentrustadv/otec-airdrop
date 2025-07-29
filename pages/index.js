@@ -98,7 +98,7 @@ export default function Home() {
           <p className="text-gray-700 mb-2">
             OTEC is not a meme token. It's your gateway to learning how to trade on a decentralized exchange. Try swapping just 1 USDC on
             <a
-              href="https://app.alienbase.xyz/swap"
+              href="https://app.alienbase.xyz/info/v3/tokens/0xd2465ab071623d04633df0e8a44fbeed1e83ee92?poolAddress=0xca3cc0e956cbfedba9950d0afd68d40db0045572"
               target="_blank"
               rel="noopener noreferrer"
               className="ml-1 text-blue-600 hover:underline"
@@ -110,7 +110,7 @@ export default function Home() {
           <p className="text-gray-700">
             Don't have a wallet? Get started with
             <a
-              href="https://metamask.io/"
+              href="https://docs.base.org/base-chain/quickstart/connecting-to-base"
               target="_blank"
               rel="noopener noreferrer"
               className="ml-1 text-blue-600 hover:underline"
